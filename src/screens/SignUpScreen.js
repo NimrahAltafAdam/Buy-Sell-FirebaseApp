@@ -2,7 +2,9 @@
 import { StyleSheet, Text, View, Image, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react';
 import { TextInput, Button } from 'react-native-paper';
-import auth from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
+import firestore from '@react-native-firebase/firestore';
 
 const SignUpScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
@@ -17,11 +19,12 @@ const userSignUp = async () => {
       }
       try{
           await auth().createUserWithEmailAndPassword(email,password)
-        //   messaging().getToken().then(token=>{
-        //       firestore().collection('usertoken').add({
-        //           token:token
-        //       })
-        //     })
+          messaging().getToken().then(token=>{
+            //inorder to store the tokens of the users devices we will create a collection and store them init
+              firestore().collection('usertoken').add({
+                  token:token
+              })
+            })
          
       }catch(err){
           console.log(err)

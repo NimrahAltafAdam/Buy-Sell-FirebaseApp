@@ -12,10 +12,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Feather from "react-native-vector-icons/Feather";
+import Feather from 'react-native-vector-icons/Feather';
 import AccountScreen from './screens/AccountScreen';
 
 import auth from "@react-native-firebase/auth"
+import messaging from '@react-native-firebase/messaging';
 
 
 
@@ -116,6 +117,11 @@ const Navigation = () => {
 }
 
 const App = () => {
+  // useEffect(() => {
+  //   messaging().getToken().then(token=> {
+  //     console.log("Token",token)
+  //   })
+  // }, [])
   return (
     <>
       <View style={styles.container}>
