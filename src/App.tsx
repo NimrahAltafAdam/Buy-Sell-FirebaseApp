@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import CreateAddScreen from './screens/CreateAddScreen';
@@ -14,6 +14,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Feather from "react-native-vector-icons/Feather";
 import AccountScreen from './screens/AccountScreen';
+
+import auth from "@react-native-firebase/auth"
 
 
 
@@ -95,7 +97,17 @@ const DrawerNavigator = () => {
 }
 
 const Navigation = () => {
-  const user = "user present"
+  const [user, setUser] = useState('')
+  useEffect(() => {
+    auth().onAuthStateChanged((userExist) => {
+      if(userExist) {
+        setUser(userExist)
+      } else {
+        setUser("")
+      }
+    })
+  
+  }, [])
   return (
     <NavigationContainer>
       {user ? <TabNavigator /> : <AuthNavigator />}

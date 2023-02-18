@@ -3,14 +3,18 @@ import React,{useState,useEffect} from 'react'
 import { View, Text,FlatList,StyleSheet } from 'react-native'
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 // import firestore from '@react-native-firebase/firestore';
-// import auth from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth'
 
 
 
 const AccountScreen = () => {
     return (
       <View>
-        <Text>AccountScreen</Text>
+        <Text>{auth().currentUser.email}</Text>
+
+        <Button mode="contained" onPress={() => auth().signOut()}>
+                            Log out
+                        </Button>
       </View>
     )
   }

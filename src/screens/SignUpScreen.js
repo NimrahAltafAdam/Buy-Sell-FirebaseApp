@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { StyleSheet, Text, View, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react';
 import { TextInput, Button } from 'react-native-paper';
 import auth from '@react-native-firebase/auth'
@@ -7,13 +7,26 @@ import auth from '@react-native-firebase/auth'
 const SignUpScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [text, setText] = useState("");
 
-    //USERLOGINAUTH
+    //USERSIGNUPAUTH
 
 const userSignUp = async () => {
-    const result = await auth().createUserWithEmailAndPassword(email,password)
-    console.log(result)
+    if(!email||!password){
+        Alert.alert("please add all the fields")  
+        return
+      }
+      try{
+          await auth().createUserWithEmailAndPassword(email,password)
+        //   messaging().getToken().then(token=>{
+        //       firestore().collection('usertoken').add({
+        //           token:token
+        //       })
+        //     })
+         
+      }catch(err){
+          console.log(err)
+          Alert.alert("something went wrong please try different password")
+      }
   }
     return (
         <KeyboardAvoidingView behavior='position'>
