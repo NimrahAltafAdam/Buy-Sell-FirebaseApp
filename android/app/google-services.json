@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "489306787795",
+    "project_id": "olexclone",
+    "storage_bucket": "olexclone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489306787795:android:24317442334b198522a926",
+        "android_client_info": {
+          "package_name": "com.ecapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489306787795-8jamoprel1vulu6c9hfsnk1ud271r84q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWb34WNuqHDKJpqs2k3jKpK0VFXjsi6eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489306787795-8jamoprel1vulu6c9hfsnk1ud271r84q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

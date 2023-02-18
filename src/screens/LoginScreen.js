@@ -1,15 +1,17 @@
 /* eslint-disable prettier/prettier */
-import { StyleSheet, Text, View, Image, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, View, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 import { TextInput, Button } from 'react-native-paper';
 
 //KEYBOARDAVOIDINGVIEW IS USED TO AVOID THE OVERLAP OF TEXTINPUT AND KEYBOARD
+//EVERY Component receives props, we will destructure navigation from the props to redirect users to sign up page
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [text, setText] = useState("");
     return (
+        <View style={styles.container}>
         <KeyboardAvoidingView behavior='position'>
             <View style={styles.box1}>
                 <Image style={{ width: 300, height: 300 }} source={require("../assets/logo.png")} />
@@ -35,14 +37,23 @@ const LoginScreen = () => {
 <Button   mode="contained" onPress={() => console.log('Pressed')}>
    Log In
   </Button>
+
+  <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+    <Text>Don't have an account?</Text>
+  </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
+        </View>
     )
 }
 
 export default LoginScreen
 
 const styles = StyleSheet.create({
+    // container: {
+    //     flex: 1,
+    //     marginTop: 40
+    // },
     box1: {
         alignItems: "center"
     },
