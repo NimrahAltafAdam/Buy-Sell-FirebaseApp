@@ -6,31 +6,31 @@ import auth from '@react-native-firebase/auth';
 import messaging from '@react-native-firebase/messaging';
 import firestore from '@react-native-firebase/firestore';
 
-const SignUpScreen = ({navigation}) => {
+const SignUpScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     //USERSIGNUPAUTH
 
-const userSignUp = async () => {
-    if(!email||!password){
-        Alert.alert("please add all the fields")  
-        return
-      }
-      try{
-          await auth().createUserWithEmailAndPassword(email,password)
-          messaging().getToken().then(token=>{
-            //inorder to store the tokens of the users devices we will create a collection and store them init
-              firestore().collection('usertoken').add({
-                  token:token
-              })
-            })
-         
-      }catch(err){
-          console.log(err)
-          Alert.alert("something went wrong please try different password")
-      }
-  }
+    const userSignUp = async () => {
+        if (!email || !password) {
+            Alert.alert("please add all the fields")
+            return
+        }
+        try {
+            await auth().createUserWithEmailAndPassword(email, password)
+            // messaging().getToken().then(token => {
+            //     //inorder to store the tokens of the users devices, we will create a collection and store them init
+            //     firestore().collection('usertoken').add({
+            //         token: token
+            //     })
+            // })
+
+        } catch (err) {
+            console.log(err)
+            Alert.alert("something went wrong please try different password")
+        }
+    }
     return (
         <KeyboardAvoidingView behavior='position'>
             <View style={styles.box1}>
@@ -54,12 +54,12 @@ const userSignUp = async () => {
                     onChangeText={text => setPassword(text)}
                 />
 
-<Button   mode="contained" onPress={() => userSignUp()}>
-   Sign Up
-  </Button>
-  <TouchableOpacity onPress={() => navigation.goBack()}>
-    <Text>Login</Text>
-  </TouchableOpacity>
+                <Button mode="contained" onPress={() => userSignUp()}>
+                    Sign Up
+                </Button>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text>Login</Text>
+                </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
     )
