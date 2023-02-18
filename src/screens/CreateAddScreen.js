@@ -1,7 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import React, {useState} from 'react';
 import { TextInput, Button } from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth'
+
 
 
 const CreateAddScreen = () => {
@@ -10,6 +13,29 @@ const CreateAddScreen = () => {
     const [year, setYear] = useState("");
     const [price, setPrice] = useState("");
     const [phone, setPhone] = useState("");
+
+    const postData = async () => {
+        if(!name||!desc || !price || !year || !phone){
+            Alert.alert("please add all the fields")  
+            return
+          }
+        try {
+            await firestore().collection('ads')
+        .add({
+            name,
+            desc,
+            year,
+            phone,
+            price,
+            image: "https://images.unsplash.com/photo-1593642532744-d377ab507dc8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
+            uid: auth().currentUser.uid
+        })
+        Alert.alert("Your add has been successfully posted")
+        } catch (error) {
+            console.log(error)
+            Alert.alert("Something went wrong")
+        }
+    }
   return (
     <View style={styles.container}>
     <Text style={styles.text}>CREATE ADD</Text>
@@ -50,7 +76,7 @@ const CreateAddScreen = () => {
                 <Button icon="camera"   mode="contained" onPress={() => console.log('Pressed')}>
    Upload Image
   </Button>
-  <Button    mode="contained" onPress={() => console.log('Pressed')}>
+  <Button    mode="contained" onPress={() => postData()}>
    Post
   </Button>
     </View>

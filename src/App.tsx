@@ -99,14 +99,14 @@ const DrawerNavigator = () => {
 const Navigation = () => {
   const [user, setUser] = useState('')
   useEffect(() => {
-    auth().onAuthStateChanged((userExist) => {
+    const unSubscribe = auth().onAuthStateChanged((userExist) => {
       if(userExist) {
         setUser(userExist)
       } else {
         setUser("")
       }
     })
-  
+  return unSubscribe
   }, [])
   return (
     <NavigationContainer>
@@ -139,3 +139,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   }
 })
+
+//stopped at firestore section tab navigation set up camera module is still left

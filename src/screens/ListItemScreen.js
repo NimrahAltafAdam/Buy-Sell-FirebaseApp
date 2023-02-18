@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { StyleSheet, View,FlatList } from 'react-native'
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
-
+import firestore from '@react-native-firebase/firestore';
 const ListItemScreen = () => {
     const myItems = [
         {
@@ -24,6 +24,22 @@ const ListItemScreen = () => {
             phone: "123-456-789"
         }
     ]
+    const [items, setItems] = useState([])
+    //We can not use async await inside useEffect therefore a function to get data will be declared outside useeffect
+
+    const getDetails = async () => {
+      const querySnaps = await firestore().collection("ads").get()
+      const result= querySnaps.docs.map(docSnap=>docSnap.data())
+      console.log(result)
+      setItems(result)
+    }
+    //it is a good parctice to add return in useEffect tp avoid warnings and clean the code
+    useEffect(() => {
+      getDetails()
+      return () => {
+        console.log("cleanup")
+      }
+    }, [])
 
     const renderItem = (item) => {
         return (
@@ -46,8 +62,8 @@ const ListItemScreen = () => {
     <View style={styles.container}>
       <Text style={styles.text}>ListItemScreen</Text>
       <FlatList
-      data={myItems}
-      keyExtractor={(item) => item.productId}
+      data={items}
+      keyExtractor={(item) => item.price}
       renderItem={({item}) => renderItem(item)}
        />
     </View>
